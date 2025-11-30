@@ -80,6 +80,9 @@ const Landing = () => {
                 <Link to="/login">
                   <Button variant="ghost">Sign In</Button>
                 </Link>
+                <Link to="/admin-login">
+                  <Button variant="outline">Admin</Button>
+                </Link>
                 <Link to="/signup">
                   <Button variant="hero">Get Started</Button>
                 </Link>
