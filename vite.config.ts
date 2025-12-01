@@ -11,7 +11,7 @@ export default defineConfig(({ mode }) => ({
     allowedHosts: [
       "localhost",
       "127.0.0.1",
-      "mediflow-10.onrender.com",
+      "mediflow-mobile-10.onrender.com",
       "*.onrender.com",
     ],
     middlewareMode: true,
@@ -22,7 +22,7 @@ export default defineConfig(({ mode }) => ({
     allowedHosts: [
       "localhost",
       "127.0.0.1",
-      "mediflow-10.onrender.com",
+     "mediflow-mobile-10.onrender.com",
       "*.onrender.com",
     ],
   },
