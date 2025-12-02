@@ -828,98 +828,6 @@ const MyTreatments = () => {
 
             {/* Add Treatment Button */}
             <div className="flex items-center gap-2 sm:gap-3">
-            <Dialog open={addTreatmentOpen} onOpenChange={setAddTreatmentOpen}>
-              <DialogTrigger asChild>
-                <Button className="gap-2 text-xs sm:text-sm">
-                  <Plus className="w-4 sm:w-5 h-4 sm:h-5" />
-                  <span className="hidden sm:inline">Add Treatment</span>
-                  <span className="sm:hidden">Add</span>
-                </Button>
-              </DialogTrigger>
-              <DialogContent className="w-[calc(100%-1rem)] max-w-sm sm:max-w-md max-h-[85vh] overflow-y-auto p-4 sm:p-6">
-                <DialogHeader className="pb-2 sm:pb-4">
-                  <DialogTitle className="text-base sm:text-lg">Add New Treatment</DialogTitle>
-                  <DialogDescription className="text-xs sm:text-sm">
-                    Create a new treatment plan
-                  </DialogDescription>
-                </DialogHeader>
-                <div className="space-y-3 sm:space-y-4">
-                  <div>
-                    <Label htmlFor="name">Treatment Name *</Label>
-                    <Input
-                      id="name"
-                      placeholder="e.g., Diabetes"
-                      value={treatmentForm.name}
-                      onChange={(e) =>
-                        setTreatmentForm({ ...treatmentForm, name: e.target.value })
-                      }
-                      className="h-9 sm:h-10 text-xs sm:text-sm"
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="description">Description</Label>
-                    <Textarea
-                      id="description"
-                      placeholder="Treatment details"
-                      value={treatmentForm.description}
-                      onChange={(e) =>
-                        setTreatmentForm({ ...treatmentForm, description: e.target.value })
-                      }
-                      className="h-16 sm:h-20 text-xs sm:text-sm resize-none"
-                    />
-                  </div>
-                  <div className="grid grid-cols-2 gap-2 sm:gap-3">
-                    <div>
-                      <Label htmlFor="start_date">Start Date</Label>
-                      <Input
-                        id="start_date"
-                        type="date"
-                        value={treatmentForm.start_date}
-                        onChange={(e) =>
-                          setTreatmentForm({ ...treatmentForm, start_date: e.target.value })
-                        }
-                        className="h-9 sm:h-10 text-xs sm:text-sm"
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="end_date">End Date</Label>
-                      <Input
-                        id="end_date"
-                        type="date"
-                        value={treatmentForm.end_date}
-                        onChange={(e) =>
-                          setTreatmentForm({ ...treatmentForm, end_date: e.target.value })
-                        }
-                        className="h-9 sm:h-10 text-xs sm:text-sm"
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <Label htmlFor="status">Status</Label>
-                    <Select
-                      value={treatmentForm.status}
-                      onValueChange={(value: string) =>
-                        setTreatmentForm({
-                          ...treatmentForm,
-                          status: value === "active" ? "active" : "inactive",
-                        })
-                      }
-                    >
-                      <SelectTrigger id="status" className="h-9 sm:h-10 text-xs sm:text-sm">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="active">Active</SelectItem>
-                        <SelectItem value="inactive">Inactive</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <Button onClick={handleAddTreatment} className="w-full h-9 sm:h-10 text-xs sm:text-sm mt-3 sm:mt-4">
-                    Add Treatment
-                  </Button>
-                </div>
-              </DialogContent>
-            </Dialog>
             <Button variant="ghost" size="icon" className="relative">
               <Bell className="w-5 h-5" />
               <span className="absolute top-1 right-1 w-2 h-2 bg-accent rounded-full" />
@@ -939,8 +847,11 @@ const MyTreatments = () => {
             </div>
           ) : (
             <>
-              <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-3 sm:gap-4 lg:gap-6">
-                {treatments.map((treatment) => (
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
+                {/* Left Content - Treatment Cards */}
+                <div className="lg:col-span-2">
+                  <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 lg:gap-6">
+                    {treatments.map((treatment) => (
                   <Card key={treatment.id} className="overflow-hidden">
                     <CardHeader className="bg-gradient-to-r from-primary/5 to-primary/10 p-3 sm:p-4 lg:p-6">
                       <div className="flex items-start justify-between gap-2">
@@ -1492,9 +1403,132 @@ const MyTreatments = () => {
                     </CardContent>
                   </Card>
                 ))}
-              </div>
+                  </div>
+                </div>
 
-              {/* Empty State */}
+                {/* Right Sidebar */}
+                <div className="space-y-4 sm:space-y-6 lg:space-y-8">
+                  {/* Add Treatment Card */}
+                  <Card variant="glass" className="p-4 sm:p-5 lg:p-6 sticky top-24">
+                    <div className="text-center mb-4 sm:mb-5 lg:mb-6">
+                      <div className="w-12 sm:w-14 h-12 sm:h-14 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                        <Plus className="w-6 sm:w-7 h-6 sm:h-7 text-primary" />
+                      </div>
+                      <h3 className="text-base sm:text-lg font-semibold mb-2">Add New Treatment</h3>
+                      <p className="text-xs sm:text-sm text-muted-foreground mb-4 sm:mb-6">Create a new treatment plan with medicines and schedule</p>
+                    </div>
+                    <Dialog open={addTreatmentOpen} onOpenChange={setAddTreatmentOpen}>
+                      <DialogTrigger asChild>
+                        <Button className="w-full gap-2 text-xs sm:text-sm h-9 sm:h-10">
+                          <Plus className="w-4 h-4" />
+                          Start New Treatment
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent className="w-[calc(100%-1rem)] max-w-xs sm:max-w-sm md:max-w-md max-h-[90vh] overflow-y-auto p-4 sm:p-5 lg:p-6">
+                        <DialogHeader className="pb-3 sm:pb-4 lg:pb-5">
+                          <DialogTitle className="text-base sm:text-lg lg:text-xl">Add New Treatment</DialogTitle>
+                          <DialogDescription className="text-xs sm:text-sm">
+                            Create a new treatment plan
+                          </DialogDescription>
+                        </DialogHeader>
+                        <div className="space-y-3 sm:space-y-4 lg:space-y-5">
+                          <div>
+                            <Label htmlFor="name" className="text-xs sm:text-sm">Treatment Name *</Label>
+                            <Input
+                              id="name"
+                              placeholder="e.g., Diabetes"
+                              value={treatmentForm.name}
+                              onChange={(e) =>
+                                setTreatmentForm({ ...treatmentForm, name: e.target.value })
+                              }
+                              className="h-10 sm:h-11 text-xs sm:text-sm"
+                            />
+                          </div>
+                          <div>
+                            <Label htmlFor="description" className="text-xs sm:text-sm">Description</Label>
+                            <Textarea
+                              id="description"
+                              placeholder="Treatment details"
+                              value={treatmentForm.description}
+                              onChange={(e) =>
+                                setTreatmentForm({ ...treatmentForm, description: e.target.value })
+                              }
+                              className="h-20 sm:h-24 text-xs sm:text-sm resize-none"
+                            />
+                          </div>
+                          <div className="grid grid-cols-2 gap-2 sm:gap-3">
+                            <div>
+                              <Label htmlFor="start_date" className="text-xs sm:text-sm">Start Date</Label>
+                              <Input
+                                id="start_date"
+                                type="date"
+                                value={treatmentForm.start_date}
+                                onChange={(e) =>
+                                  setTreatmentForm({ ...treatmentForm, start_date: e.target.value })
+                                }
+                                className="h-10 sm:h-11 text-xs sm:text-sm"
+                              />
+                            </div>
+                            <div>
+                              <Label htmlFor="end_date" className="text-xs sm:text-sm">End Date</Label>
+                              <Input
+                                id="end_date"
+                                type="date"
+                                value={treatmentForm.end_date}
+                                onChange={(e) =>
+                                  setTreatmentForm({ ...treatmentForm, end_date: e.target.value })
+                                }
+                                className="h-10 sm:h-11 text-xs sm:text-sm"
+                              />
+                            </div>
+                          </div>
+                          <div>
+                            <Label htmlFor="status" className="text-xs sm:text-sm">Status</Label>
+                            <Select
+                              value={treatmentForm.status}
+                              onValueChange={(value: string) =>
+                                setTreatmentForm({
+                                  ...treatmentForm,
+                                  status: value === "active" ? "active" : "inactive",
+                                })
+                              }
+                            >
+                              <SelectTrigger id="status" className="h-10 sm:h-11 text-xs sm:text-sm">
+                                <SelectValue />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value="active">Active</SelectItem>
+                                <SelectItem value="inactive">Inactive</SelectItem>
+                              </SelectContent>
+                            </Select>
+                          </div>
+                          <Button onClick={handleAddTreatment} className="w-full h-10 sm:h-11 text-xs sm:text-sm mt-3 sm:mt-4">
+                            Add Treatment
+                          </Button>
+                        </div>
+                      </DialogContent>
+                    </Dialog>
+                  </Card>
+
+                  {/* Treatments Summary Card */}
+                  <Card variant="elevated" className="p-4 sm:p-5 lg:p-6">
+                    <h3 className="text-base sm:text-lg font-semibold mb-4 sm:mb-5 flex items-center gap-2">
+                      <Stethoscope className="w-5 h-5 text-primary" />
+                      Summary
+                    </h3>
+                    <div className="space-y-3 sm:space-y-4">
+                      <div className="flex items-center justify-between p-3 sm:p-4 rounded-lg bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950 dark:to-indigo-950 border border-blue-200 dark:border-blue-800">
+                        <span className="text-sm sm:text-base font-medium">Active Treatments</span>
+                        <span className="text-lg sm:text-xl font-bold text-blue-600 dark:text-blue-400">{treatments.filter(t => t.status === 'active').length}</span>
+                      </div>
+                      <div className="flex items-center justify-between p-3 sm:p-4 rounded-lg bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-950 dark:to-pink-950 border border-purple-200 dark:border-purple-800">
+                        <span className="text-sm sm:text-base font-medium">Total Medicines</span>
+                        <span className="text-lg sm:text-xl font-bold text-purple-600 dark:text-purple-400">{treatments.reduce((sum, t) => sum + t.medicines.length, 0)}</span>
+                      </div>
+                    </div>
+                  </Card>
+                </div>
+              </div>
               {treatments.length === 0 && (
                 <Card className="border-dashed">
                   <CardContent className="flex flex-col items-center justify-center py-12">
