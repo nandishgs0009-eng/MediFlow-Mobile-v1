@@ -677,7 +677,7 @@ const MyTreatments = () => {
   return (
     <div className="min-h-screen bg-background flex">
       {/* Sidebar */}
-      <aside className={`${sidebarOpen ? 'w-64' : 'w-20'} bg-card border-r border-border/50 transition-all duration-300 flex flex-col fixed md:static left-0 top-0 h-screen z-50`}>
+      <aside className={`${sidebarOpen ? 'w-64' : 'w-20'} bg-card border-r border-border/50 transition-all duration-300 flex flex-col fixed left-0 top-0 h-screen z-40`}>
         {/* Logo */}
         <div className="p-6 border-b border-border/50 flex items-center justify-between">
           {sidebarOpen && (
@@ -787,20 +787,30 @@ const MyTreatments = () => {
       </aside>
 
       {/* Main Content */}
-      <main className={`flex-1 transition-all duration-300 ${!isMobile && (sidebarOpen ? 'md:ml-64' : 'md:ml-20')}`}>
+      <main className={`flex-1 ${sidebarOpen ? 'ml-64' : 'ml-20'} transition-all duration-300`}>
         {/* Top Bar */}
-        <nav className="sticky top-0 z-40 bg-card/80 backdrop-blur-lg border-b border-border/50 px-8 py-4 flex items-center justify-between">
-          <div>
-            <h2 className="text-2xl font-bold">My Treatments</h2>
-            <p className="text-sm text-muted-foreground">Manage your active treatments and associated medicines</p>
+        <nav className="sticky top-0 z-40 bg-card/80 backdrop-blur-lg border-b border-border/50 px-4 sm:px-6 md:px-8 py-3 sm:py-4 flex items-center justify-between gap-2 sm:gap-4">
+          <div className="flex items-center gap-2 min-w-0">
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              onClick={() => setSidebarOpen(!sidebarOpen)}
+              className="md:hidden flex-shrink-0"
+            >
+              {sidebarOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </Button>
+            <div className="min-w-0">
+              <h2 className="text-lg sm:text-2xl font-bold truncate">My Treatments</h2>
+              <p className="text-xs sm:text-sm text-muted-foreground line-clamp-1">Manage your active treatments and associated medicines</p>
+            </div>
           </div>
-          <div className="flex items-center gap-4 md:gap-6">
+          <div className="flex items-center gap-2 sm:gap-4 md:gap-6 flex-shrink-0">
             {/* 12-Hour Time Display - Compact with Seconds */}
-            <div className="flex items-center gap-2 px-4 sm:px-5 py-1.5 bg-blue-50 dark:bg-blue-950/30 rounded-lg border border-blue-200 dark:border-blue-800 backdrop-blur-sm">
+            <div className="hidden sm:flex items-center gap-2 px-3 sm:px-5 py-1.5 bg-blue-50 dark:bg-blue-950/30 rounded-lg border border-blue-200 dark:border-blue-800 backdrop-blur-sm">
               <div className="flex flex-col items-start">
                 <div className="text-xs font-medium text-blue-600 dark:text-blue-400">Current Time</div>
                 <div className="flex items-center gap-1">
-                  <div className="text-sm sm:text-base md:text-lg font-bold text-blue-600 dark:text-blue-400 font-mono">
+                  <div className="text-xs sm:text-base md:text-lg font-bold text-blue-600 dark:text-blue-400 font-mono">
                     {(displayTime.getHours() % 12 || 12).toString().padStart(2, '0')}:
                     {displayTime.getMinutes().toString().padStart(2, '0')}:
                     {displayTime.getSeconds().toString().padStart(2, '0')}
@@ -826,37 +836,39 @@ const MyTreatments = () => {
                   <span className="sm:hidden">Add</span>
                 </Button>
               </DialogTrigger>
-              <DialogContent className="w-[calc(100%-1rem)] max-w-sm sm:max-w-md max-h-[90vh] overflow-y-auto">
+              <DialogContent className="w-[calc(100%-1rem)] max-w-sm sm:max-w-md max-h-[80vh] overflow-y-auto p-2.5 sm:p-4">
                 <DialogHeader>
-                  <DialogTitle className="text-lg sm:text-xl">Add New Treatment</DialogTitle>
+                  <DialogTitle className="text-base sm:text-lg">Add New Treatment</DialogTitle>
                   <DialogDescription className="text-xs sm:text-sm">
-                    Create a new treatment plan with details
+                    Create a new treatment plan
                   </DialogDescription>
                 </DialogHeader>
-                <div className="space-y-3 sm:space-y-4">
+                <div className="space-y-2 sm:space-y-3">
                   <div>
                     <Label htmlFor="name">Treatment Name *</Label>
                     <Input
                       id="name"
-                      placeholder="e.g., Diabetes Management"
+                      placeholder="e.g., Diabetes"
                       value={treatmentForm.name}
                       onChange={(e) =>
                         setTreatmentForm({ ...treatmentForm, name: e.target.value })
                       }
+                      className="h-8 sm:h-10 text-xs sm:text-sm"
                     />
                   </div>
                   <div>
                     <Label htmlFor="description">Description</Label>
                     <Textarea
                       id="description"
-                      placeholder="Treatment details and purpose"
+                      placeholder="Treatment details"
                       value={treatmentForm.description}
                       onChange={(e) =>
                         setTreatmentForm({ ...treatmentForm, description: e.target.value })
                       }
+                      className="h-16 sm:h-20 text-xs sm:text-sm resize-none"
                     />
                   </div>
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-2 gap-2">
                     <div>
                       <Label htmlFor="start_date">Start Date</Label>
                       <Input
@@ -866,10 +878,11 @@ const MyTreatments = () => {
                         onChange={(e) =>
                           setTreatmentForm({ ...treatmentForm, start_date: e.target.value })
                         }
+                        className="h-8 sm:h-10 text-xs sm:text-sm"
                       />
                     </div>
                     <div>
-                      <Label htmlFor="end_date">End Date (Optional)</Label>
+                      <Label htmlFor="end_date">End Date</Label>
                       <Input
                         id="end_date"
                         type="date"
@@ -877,6 +890,7 @@ const MyTreatments = () => {
                         onChange={(e) =>
                           setTreatmentForm({ ...treatmentForm, end_date: e.target.value })
                         }
+                        className="h-8 sm:h-10 text-xs sm:text-sm"
                       />
                     </div>
                   </div>
@@ -891,7 +905,7 @@ const MyTreatments = () => {
                         })
                       }
                     >
-                      <SelectTrigger id="status">
+                      <SelectTrigger id="status" className="h-8 sm:h-10 text-xs sm:text-sm">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
@@ -900,7 +914,7 @@ const MyTreatments = () => {
                       </SelectContent>
                     </Select>
                   </div>
-                  <Button onClick={handleAddTreatment} className="w-full">
+                  <Button onClick={handleAddTreatment} className="w-full h-8 sm:h-10 text-xs sm:text-sm mt-2">
                     Add Treatment
                   </Button>
                 </div>
@@ -915,7 +929,7 @@ const MyTreatments = () => {
         </nav>
 
         {/* Content */}
-        <div className="p-8">
+        <div className="p-4 sm:p-6 md:p-8">
           {loading ? (
             <div className="flex items-center justify-center py-12">
               <div className="text-center">
@@ -925,16 +939,16 @@ const MyTreatments = () => {
             </div>
           ) : (
             <>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-3 sm:gap-4 lg:gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-3 sm:gap-4 lg:gap-6">
                 {treatments.map((treatment) => (
                   <Card key={treatment.id} className="overflow-hidden">
                     <CardHeader className="bg-gradient-to-r from-primary/5 to-primary/10 p-3 sm:p-4 lg:p-6">
                       <div className="flex items-start justify-between gap-2">
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2 sm:gap-3 mb-1 sm:mb-2 flex-wrap">
-                            <CardTitle className="text-lg sm:text-xl lg:text-2xl break-words">{treatment.name}</CardTitle>
+                            <CardTitle className="text-sm sm:text-base lg:text-lg break-words">{treatment.name}</CardTitle>
                             <Badge
-                              className={`text-xs sm:text-sm whitespace-nowrap ${
+                              className={`text-xs whitespace-nowrap ${
                                 treatment.status === "active"
                                   ? "bg-green-500 text-white"
                                   : "bg-gray-500 text-white"
@@ -960,9 +974,9 @@ const MyTreatments = () => {
                       </div>
                     </CardHeader>
 
-                    <CardContent className="pt-4 sm:pt-6 p-3 sm:p-4 lg:p-6">
+                    <CardContent className="pt-3 sm:pt-4 lg:pt-6 p-3 sm:p-4 lg:p-6">
                       {/* Treatment Info */}
-                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3 lg:gap-4 mb-4 sm:mb-6">
+                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3 lg:gap-4 mb-3 sm:mb-4 lg:mb-6">
                         <div>
                           <p className="text-xs sm:text-sm text-muted-foreground mb-1">Start Date</p>
                           <p className="font-semibold text-sm sm:text-base">
@@ -986,8 +1000,8 @@ const MyTreatments = () => {
                       </div>
 
                       {/* Medicines */}
-                      <div className="mt-4 sm:mt-6 border-t pt-4 sm:pt-6">
-                        <h4 className="font-semibold mb-3 sm:mb-4 flex items-center gap-2 text-sm sm:text-base">
+                      <div className="mt-3 sm:mt-4 lg:mt-6 border-t pt-3 sm:pt-4 lg:pt-6">
+                        <h4 className="font-semibold mb-2 sm:mb-3 lg:mb-4 flex items-center gap-2 text-sm sm:text-base">
                           <Pill className="w-4 sm:w-5 h-4 sm:h-5 text-primary" />
                           Associated Medicines ({treatment.medicines.length})
                         </h4>
@@ -1001,10 +1015,10 @@ const MyTreatments = () => {
                                 >
                                   <div className="flex items-start justify-between mb-1 sm:mb-2 gap-2">
                                     <div className="flex-1 min-w-0">
-                                      <p className="font-semibold flex items-center gap-2 text-sm sm:text-base mb-0.5 sm:mb-1">
+                                      <p className="font-semibold flex items-center gap-1 text-sm sm:text-base mb-1">
                                         {medicine.name}
                                         {medicationTaken[medicine.id] && (
-                                          <CheckCircle2 className="w-3 sm:w-4 h-3 sm:h-4 text-green-600 flex-shrink-0" />
+                                          <CheckCircle2 className="w-4 sm:w-5 h-4 sm:h-5 text-green-600 flex-shrink-0" />
                                         )}
                                       </p>
                                       <p className="text-xs sm:text-sm text-muted-foreground">
@@ -1013,17 +1027,17 @@ const MyTreatments = () => {
                                     </div>
                                     <Badge variant="outline" className="text-xs sm:text-sm whitespace-nowrap">{medicine.frequency}</Badge>
                                   </div>
-                                  <p className="text-xs sm:text-sm text-muted-foreground flex items-center gap-1 mb-1 sm:mb-2">
+                                  <p className="text-xs sm:text-sm text-muted-foreground flex items-center gap-1 mb-1">
                                     <Clock className="w-3 sm:w-4 h-3 sm:h-4" />
                                     {medicine.schedule_time}
                                   </p>
                                   {medicine.instructions && (
-                                    <p className="text-xs text-muted-foreground italic mb-1 sm:mb-2">
+                                    <p className="text-xs sm:text-sm text-muted-foreground italic mb-1">
                                       {medicine.instructions}
                                     </p>
                                   )}
                                   {medicine.stock !== null && (
-                                    <p className="text-xs sm:text-sm mb-2 sm:mb-3">
+                                    <p className="text-xs sm:text-sm mb-2">
                                       Stock:{" "}
                                       <span
                                         className={
@@ -1048,7 +1062,7 @@ const MyTreatments = () => {
                                             playAlertSound();
                                           }
                                         }}
-                                        className="w-full gap-2"
+                                        className="w-full gap-2 text-xs sm:text-sm h-9 sm:h-10"
                                       >
                                         {medicationTaken[medicine.id] ? (
                                           <>
@@ -1120,24 +1134,24 @@ const MyTreatments = () => {
                               <DialogTrigger asChild>
                                 <Button
                                   variant="outline"
-                                  className="mt-3 sm:mt-4 w-full gap-2 text-xs sm:text-sm"
+                                  className="mt-2 sm:mt-3 lg:mt-4 w-full gap-2 text-xs sm:text-sm h-9 sm:h-10"
                                   onClick={() => setSelectedTreatmentId(treatment.id)}
                                 >
-                                  <Plus className="w-3 sm:w-4 h-3 sm:h-4" />
-                                  Add Medicine to This Treatment
+                                  <Plus className="w-4 h-4" />
+                                  Add Medicine
                                 </Button>
                               </DialogTrigger>
                               {selectedTreatmentId === treatment.id && (
-                                <DialogContent className="w-[calc(100%-1rem)] max-w-sm sm:max-w-md max-h-[70vh] overflow-y-auto p-2 sm:p-4">
-                                  <DialogHeader className="pb-1 sm:pb-2">
-                                    <DialogTitle className="text-sm sm:text-base">Add New Medicine</DialogTitle>
-                                    <DialogDescription className="text-xs">
+                                <DialogContent className="w-[calc(100%-1rem)] max-w-sm sm:max-w-md max-h-[85vh] overflow-y-auto p-4 sm:p-6">
+                                  <DialogHeader className="pb-2 sm:pb-4">
+                                    <DialogTitle className="text-base sm:text-lg">Add New Medicine</DialogTitle>
+                                    <DialogDescription className="text-xs sm:text-sm">
                                       Add a medicine to this treatment plan
                                     </DialogDescription>
                                   </DialogHeader>
-                                  <div className="space-y-1.5 sm:space-y-2">
+                                  <div className="space-y-3 sm:space-y-4">
                                     <div>
-                                      <Label htmlFor="med-name" className="text-xs">Medicine Name *</Label>
+                                      <Label htmlFor="med-name" className="text-xs sm:text-sm">Medicine Name *</Label>
                                       <Input
                                         id="med-name"
                                         placeholder="e.g., Metformin"
@@ -1148,11 +1162,11 @@ const MyTreatments = () => {
                                             name: e.target.value,
                                           })
                                         }
-                                        className="h-7 sm:h-9 text-xs"
+                                        className="h-9 sm:h-10 text-xs sm:text-sm"
                                       />
                                     </div>
                                     <div>
-                                      <Label htmlFor="med-dosage" className="text-xs">Dosage *</Label>
+                                      <Label htmlFor="med-dosage" className="text-xs sm:text-sm">Dosage *</Label>
                                       <Input
                                         id="med-dosage"
                                         placeholder="e.g., 500mg"
@@ -1163,11 +1177,11 @@ const MyTreatments = () => {
                                             dosage: e.target.value,
                                           })
                                         }
-                                        className="h-7 sm:h-9 text-xs"
+                                        className="h-9 sm:h-10 text-xs sm:text-sm"
                                       />
                                     </div>
                                     <div>
-                                      <Label htmlFor="med-frequency" className="text-xs">Frequency *</Label>
+                                      <Label htmlFor="med-frequency" className="text-xs sm:text-sm">Frequency *</Label>
                                       <Select
                                         value={medicineForm.frequency}
                                         onValueChange={(value) =>
@@ -1177,8 +1191,8 @@ const MyTreatments = () => {
                                           })
                                         }
                                       >
-                                        <SelectTrigger id="med-frequency" className="h-7 sm:h-9 text-xs">
-                                          <SelectValue placeholder="Select" />
+                                        <SelectTrigger id="med-frequency" className="h-9 sm:h-10 text-xs sm:text-sm">
+                                          <SelectValue placeholder="Select frequency" />
                                         </SelectTrigger>
                                         <SelectContent>
                                           <SelectItem value="Once daily">Once daily</SelectItem>
@@ -1191,7 +1205,7 @@ const MyTreatments = () => {
 
                                     {/* Times Management */}
                                     <div>
-                                      <Label>Medicine Times *</Label>
+                                      <Label className="text-xs sm:text-sm">Medicine Times *</Label>
                                       <div className="space-y-2 mt-2">
                                         {medicineForm.times.map((time, index) => (
                                           <div key={index} className="flex gap-2">
@@ -1206,11 +1220,11 @@ const MyTreatments = () => {
                                                   times: newTimes,
                                                 });
                                               }}
-                                              className="flex-1"
+                                              className="flex-1 h-9 sm:h-10 text-xs sm:text-sm"
                                             />
                                             <Button
                                               type="button"
-                                              variant="destructive"
+                                              variant="ghost"
                                               size="sm"
                                               onClick={() => {
                                                 setMedicineForm({
@@ -1218,8 +1232,9 @@ const MyTreatments = () => {
                                                   times: medicineForm.times.filter((_, i) => i !== index),
                                                 });
                                               }}
+                                              className="px-3 h-9 sm:h-10"
                                             >
-                                              Remove
+                                              <X className="w-4 h-4" />
                                             </Button>
                                           </div>
                                         ))}
@@ -1227,7 +1242,7 @@ const MyTreatments = () => {
                                           type="button"
                                           variant="outline"
                                           size="sm"
-                                          className="w-full gap-2"
+                                          className="w-full gap-2 h-9 text-xs sm:text-sm"
                                           onClick={() => {
                                             setMedicineForm({
                                               ...medicineForm,
@@ -1242,7 +1257,7 @@ const MyTreatments = () => {
                                     </div>
 
                                     <div>
-                                      <Label htmlFor="med-instructions" className="text-xs">Instructions *</Label>
+                                      <Label htmlFor="med-instructions" className="text-xs sm:text-sm">Instructions *</Label>
                                       <Select
                                         value={medicineForm.instructions}
                                         onValueChange={(value) =>
@@ -1252,8 +1267,8 @@ const MyTreatments = () => {
                                           })
                                         }
                                       >
-                                        <SelectTrigger id="med-instructions" className="h-7 sm:h-9 text-xs">
-                                          <SelectValue placeholder="Select" />
+                                        <SelectTrigger id="med-instructions" className="h-9 sm:h-10 text-xs sm:text-sm">
+                                          <SelectValue placeholder="Select instruction" />
                                         </SelectTrigger>
                                         <SelectContent>
                                           <SelectItem value="Before food">Before food</SelectItem>
@@ -1263,7 +1278,7 @@ const MyTreatments = () => {
                                       </Select>
                                     </div>
                                     <div>
-                                      <Label htmlFor="med-stock" className="text-xs">Stock (tablets)</Label>
+                                      <Label htmlFor="med-stock" className="text-xs sm:text-sm">Stock (tablets)</Label>
                                       <Input
                                         id="med-stock"
                                         type="number"
@@ -1275,10 +1290,10 @@ const MyTreatments = () => {
                                             stock: e.target.value,
                                           })
                                         }
-                                        className="h-7 sm:h-9 text-xs"
+                                        className="h-9 sm:h-10 text-xs sm:text-sm"
                                       />
                                     </div>
-                                    <Button onClick={handleAddMedicine} className="w-full h-8 sm:h-9 text-xs mt-1">
+                                    <Button onClick={handleAddMedicine} className="w-full h-9 sm:h-10 text-xs sm:text-sm">
                                       Add Medicine
                                     </Button>
                                   </div>
@@ -1287,30 +1302,30 @@ const MyTreatments = () => {
                             </Dialog>
                           </>
                         ) : (
-                          <div className="text-center py-4 sm:py-6">
-                            <p className="text-xs sm:text-sm text-muted-foreground mb-2 sm:mb-3">
-                              No medicines added yet
+                          <div className="text-center py-2 sm:py-3">
+                            <p className="text-xs sm:text-sm text-muted-foreground mb-1 sm:mb-2">
+                              No medicines added
                             </p>
                             <Dialog open={addMedicineOpen} onOpenChange={setAddMedicineOpen}>
                               <DialogTrigger asChild>
                                 <Button
                                   size="sm"
-                                  className="text-xs sm:text-sm"
+                                  className="text-xs h-7"
                                   onClick={() => setSelectedTreatmentId(treatment.id)}
                                 >
-                                  <Plus className="w-3 sm:w-4 h-3 sm:h-4 mr-2" />
-                                  Add First Medicine
+                                  <Plus className="w-2.5 h-2.5 mr-1" />
+                                  Add
                                 </Button>
                               </DialogTrigger>
                               {selectedTreatmentId === treatment.id && (
-                                <DialogContent className="w-[calc(100%-1rem)] max-w-sm sm:max-w-md max-h-[70vh] overflow-y-auto p-2 sm:p-4">
+                                <DialogContent className="w-[calc(100%-1rem)] max-w-sm sm:max-w-md max-h-[75vh] overflow-y-auto p-2.5 sm:p-3">
                                   <DialogHeader className="pb-1 sm:pb-2">
-                                    <DialogTitle className="text-sm sm:text-base">Add New Medicine</DialogTitle>
+                                    <DialogTitle className="text-sm sm:text-base">Add Medicine</DialogTitle>
                                     <DialogDescription className="text-xs">
-                                      Add a medicine to this treatment plan
+                                      Add medicine to treatment
                                     </DialogDescription>
                                   </DialogHeader>
-                                  <div className="space-y-2 sm:space-y-3">
+                                  <div className="space-y-1.5 sm:space-y-2">
                                     <div>
                                       <Label htmlFor="med-name" className="text-xs sm:text-sm">Medicine Name *</Label>
                                       <Input
@@ -1323,11 +1338,11 @@ const MyTreatments = () => {
                                             name: e.target.value,
                                           })
                                         }
-                                        className="h-8 sm:h-10 text-xs sm:text-sm"
+                                        className="h-8 sm:h-9 text-xs sm:text-sm"
                                       />
                                     </div>
                                     <div>
-                                      <Label htmlFor="med-dosage">Dosage *</Label>
+                                      <Label htmlFor="med-dosage" className="text-xs sm:text-sm">Dosage *</Label>
                                       <Input
                                         id="med-dosage"
                                         placeholder="e.g., 500mg"
@@ -1338,10 +1353,11 @@ const MyTreatments = () => {
                                             dosage: e.target.value,
                                           })
                                         }
+                                        className="h-8 sm:h-9 text-xs sm:text-sm"
                                       />
                                     </div>
                                     <div>
-                                      <Label htmlFor="med-frequency">Frequency *</Label>
+                                      <Label htmlFor="med-frequency" className="text-xs sm:text-sm">Frequency *</Label>
                                       <Select
                                         value={medicineForm.frequency}
                                         onValueChange={(value) =>
@@ -1351,8 +1367,8 @@ const MyTreatments = () => {
                                           })
                                         }
                                       >
-                                        <SelectTrigger id="med-frequency">
-                                          <SelectValue placeholder="Select frequency" />
+                                        <SelectTrigger id="med-frequency" className="h-8 sm:h-9 text-xs sm:text-sm">
+                                          <SelectValue placeholder="Select" />
                                         </SelectTrigger>
                                         <SelectContent>
                                           <SelectItem value="Once daily">Once daily</SelectItem>
@@ -1365,7 +1381,7 @@ const MyTreatments = () => {
 
                                     {/* Times Management */}
                                     <div>
-                                      <Label className="text-xs">Medicine Times *</Label>
+                                      <Label className="text-xs sm:text-sm">Medicine Times *</Label>
                                       <div className="space-y-1 mt-1">
                                         {medicineForm.times.map((time, index) => (
                                           <div key={index} className="flex gap-1">
@@ -1380,7 +1396,7 @@ const MyTreatments = () => {
                                                   times: newTimes,
                                                 });
                                               }}
-                                              className="flex-1 h-7 sm:h-9 text-xs"
+                                              className="flex-1 h-8 sm:h-9 text-xs"
                                             />
                                             <Button
                                               type="button"
@@ -1392,7 +1408,7 @@ const MyTreatments = () => {
                                                   times: medicineForm.times.filter((_, i) => i !== index),
                                                 });
                                               }}
-                                              className="px-2 h-7 sm:h-9"
+                                              className="px-2 h-8 sm:h-9"
                                             >
                                               <X className="w-3 h-3" />
                                             </Button>
@@ -1402,7 +1418,7 @@ const MyTreatments = () => {
                                           type="button"
                                           variant="outline"
                                           size="sm"
-                                          className="w-full gap-1 h-7 sm:h-8 text-xs"
+                                          className="w-full gap-1 h-8 text-xs"
                                           onClick={() => {
                                             setMedicineForm({
                                               ...medicineForm,
@@ -1417,7 +1433,7 @@ const MyTreatments = () => {
                                     </div>
 
                                     <div>
-                                      <Label htmlFor="med-instructions" className="text-xs">Instructions *</Label>
+                                      <Label htmlFor="med-instructions" className="text-xs sm:text-sm">Instructions *</Label>
                                       <Select
                                         value={medicineForm.instructions}
                                         onValueChange={(value) =>
@@ -1427,8 +1443,8 @@ const MyTreatments = () => {
                                           })
                                         }
                                       >
-                                        <SelectTrigger id="med-instructions">
-                                          <SelectValue placeholder="Select instruction" />
+                                        <SelectTrigger id="med-instructions" className="h-8 sm:h-9 text-xs sm:text-sm">
+                                          <SelectValue placeholder="Select" />
                                         </SelectTrigger>
                                         <SelectContent>
                                           <SelectItem value="Before food">Before food</SelectItem>
@@ -1438,7 +1454,7 @@ const MyTreatments = () => {
                                       </Select>
                                     </div>
                                     <div>
-                                      <Label htmlFor="med-stock">Stock (tablets)</Label>
+                                      <Label htmlFor="med-stock" className="text-xs sm:text-sm">Stock (tablets)</Label>
                                       <Input
                                         id="med-stock"
                                         type="number"
@@ -1450,9 +1466,10 @@ const MyTreatments = () => {
                                             stock: e.target.value,
                                           })
                                         }
+                                        className="h-8 sm:h-9 text-xs sm:text-sm"
                                       />
                                     </div>
-                                    <Button onClick={handleAddMedicine} className="w-full">
+                                    <Button onClick={handleAddMedicine} className="w-full h-8 sm:h-9 text-xs sm:text-sm mt-2">
                                       Add Medicine
                                     </Button>
                                   </div>
@@ -1464,9 +1481,9 @@ const MyTreatments = () => {
                       </div>
 
                       {/* View History Button */}
-                      <div className="mt-6 pt-6 border-t">
+                      <div className="mt-3 sm:mt-4 lg:mt-6 pt-3 sm:pt-4 lg:pt-6 border-t">
                         <Link to={`/history?treatment=${treatment.id}`} className="w-full">
-                          <Button variant="outline" className="w-full gap-2">
+                          <Button variant="outline" className="w-full gap-2 text-xs sm:text-sm h-9 sm:h-10">
                             <Clock className="w-4 h-4" />
                             View Treatment History
                           </Button>
