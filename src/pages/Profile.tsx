@@ -35,7 +35,6 @@ import {
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
-import { useIsMobile } from "@/hooks/use-mobile";
 
 interface PatientProfile {
   id: string;
@@ -64,9 +63,8 @@ const Profile = () => {
   const { user, signOut, profile } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
-  const isMobile = useIsMobile();
 
-  const [sidebarOpen, setSidebarOpen] = useState(!isMobile);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
@@ -286,7 +284,7 @@ const Profile = () => {
       <aside
         className={`${
           sidebarOpen ? "w-64" : "w-20"
-        } bg-card border-r border-border/50 transition-all duration-300 flex flex-col fixed left-0 top-0 h-screen hidden md:flex z-50`}
+        } bg-card border-r border-border/50 transition-all duration-300 flex flex-col fixed left-0 top-0 h-screen`}
       >
         {/* Logo */}
         <div className="p-6 border-b border-border/50 flex items-center justify-between">
@@ -424,13 +422,13 @@ const Profile = () => {
 
       {/* Main Content */}
       <main
-        className={`flex-1 w-full md:${sidebarOpen ? "ml-64" : "ml-20"} transition-all duration-300`}
+        className={`flex-1 ${sidebarOpen ? "ml-64" : "ml-20"} transition-all duration-300`}
       >
         {/* Top Bar */}
-        <nav className="sticky top-0 z-40 bg-card/80 backdrop-blur-lg border-b border-border/50 px-4 sm:px-6 md:px-8 py-3 sm:py-4 flex items-center justify-between gap-2 sm:gap-4">
-          <div className="min-w-0">
-            <h2 className="text-xl sm:text-2xl font-bold truncate">Patient Profile</h2>
-            <p className="text-xs sm:text-sm text-muted-foreground line-clamp-1">
+        <nav className="sticky top-0 z-40 bg-card/80 backdrop-blur-lg border-b border-border/50 px-8 py-4 flex items-center justify-between">
+          <div>
+            <h2 className="text-2xl font-bold">Patient Profile</h2>
+            <p className="text-sm text-muted-foreground">
               Manage your personal and medical information
             </p>
           </div>
@@ -439,17 +437,16 @@ const Profile = () => {
               onClick={() => {
                 setIsEditing(true);
               }}
-              className="gap-1 sm:gap-2 text-xs sm:text-sm whitespace-nowrap"
+              className="gap-2"
             >
-              <Edit2 className="w-3 sm:w-4 h-3 sm:h-4" />
-              <span className="hidden sm:inline">Edit Profile</span>
-              <span className="sm:hidden">Edit</span>
+              <Edit2 className="w-4 h-4" />
+              Edit Profile
             </Button>
           )}
         </nav>
 
         {/* Content */}
-        <div className="p-4 sm:p-6 md:p-8">
+        <div className="p-8">
           {isEditing ? (
             // Edit Mode
             <div className="space-y-6">
@@ -465,7 +462,7 @@ const Profile = () => {
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 lg:gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <label className="text-sm font-semibold mb-2 block">
                         Full Name
@@ -493,7 +490,7 @@ const Profile = () => {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 lg:gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <label className="text-sm font-semibold mb-2 block">
                         Phone Number
@@ -519,7 +516,7 @@ const Profile = () => {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 lg:gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <label className="text-sm font-semibold mb-2 block">
                         Gender
@@ -578,7 +575,7 @@ const Profile = () => {
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 lg:gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <label className="text-sm font-semibold mb-2 block">
                         Height (cm)
@@ -690,7 +687,7 @@ const Profile = () => {
                     />
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3 lg:gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
                       <label className="text-sm font-semibold mb-2 block">
                         City
@@ -739,7 +736,7 @@ const Profile = () => {
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 lg:gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <label className="text-sm font-semibold mb-2 block">
                         Contact Name
@@ -815,7 +812,7 @@ const Profile = () => {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 lg:gap-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <div>
                       <p className="text-sm text-muted-foreground mb-1">
                         Full Name
@@ -884,7 +881,7 @@ const Profile = () => {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3 lg:gap-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     <div>
                       <p className="text-sm text-muted-foreground mb-1">
                         Height
