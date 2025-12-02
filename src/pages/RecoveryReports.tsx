@@ -840,48 +840,43 @@ const RecoveryReports = () => {
 
               {/* Treatment Details Table */}
               <Card className="mt-6">
-                <CardHeader>
-                  <CardTitle>Treatment Summary</CardTitle>
-                  <CardDescription>Details of each treatment plan</CardDescription>
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-lg sm:text-xl">Treatment Summary</CardTitle>
+                  <CardDescription className="text-xs sm:text-sm">Details of each treatment plan</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="overflow-x-auto">
-                    <table className="w-full">
+                    <table className="w-full text-xs sm:text-sm">
                       <thead>
                         <tr className="border-b">
-                          <th className="text-left py-3 px-4 font-semibold">Treatment</th>
-                          <th className="text-left py-3 px-4 font-semibold">Medicines</th>
-                          <th className="text-left py-3 px-4 font-semibold">Taken</th>
-                          <th className="text-left py-3 px-4 font-semibold">Adherence</th>
-                          <th className="text-left py-3 px-4 font-semibold">Status</th>
+                          <th className="text-left py-2 px-2 sm:px-3 font-semibold">Treatment</th>
+                          <th className="text-left py-2 px-2 sm:px-3 font-semibold">Medicines</th>
+                          <th className="text-left py-2 px-2 sm:px-3 font-semibold">Taken</th>
+                          <th className="text-left py-2 px-2 sm:px-3 font-semibold">Adherence</th>
+                          <th className="text-left py-2 px-2 sm:px-3 font-semibold">Status</th>
                         </tr>
                       </thead>
                       <tbody>
                         {treatmentStats.length > 0 ? (
                           treatmentStats.map((treatment) => (
                             <tr key={treatment.id} className="border-b hover:bg-secondary/50">
-                              <td className="py-3 px-4">{treatment.name}</td>
-                              <td className="py-3 px-4">{treatment.totalMedicines}</td>
-                              <td className="py-3 px-4">{treatment.takenToday}</td>
-                              <td className="py-3 px-4">
-                                <div className="flex items-center gap-2">
-                                  <div className="w-16">
-                                    <Progress value={treatment.adherenceRate} />
-                                  </div>
-                                  <span className={`font-semibold ${getAdherenceColor(treatment.adherenceRate)}`}>
-                                    {treatment.adherenceRate}%
-                                  </span>
-                                </div>
+                              <td className="py-2 px-2 sm:px-3">{treatment.name}</td>
+                              <td className="py-2 px-2 sm:px-3 text-center">{treatment.totalMedicines}</td>
+                              <td className="py-2 px-2 sm:px-3 text-center">{treatment.takenToday}</td>
+                              <td className="py-2 px-2 sm:px-3">
+                                <span className={`font-semibold ${getAdherenceColor(treatment.adherenceRate)}`}>
+                                  {treatment.adherenceRate}%
+                                </span>
                               </td>
-                              <td className="py-3 px-4">
+                              <td className="py-2 px-2 sm:px-3">
                                 <Badge
-                                  className={
+                                  className={`text-xs ${
                                     treatment.adherenceRate >= 80
                                       ? "bg-green-500/20 text-green-700 dark:text-green-400"
                                       : treatment.adherenceRate >= 60
                                       ? "bg-yellow-500/20 text-yellow-700 dark:text-yellow-400"
                                       : "bg-red-500/20 text-red-700 dark:text-red-400"
-                                  }
+                                  }`}
                                 >
                                   {treatment.adherenceRate >= 80 ? "On Track" : treatment.adherenceRate >= 60 ? "Good" : "Needs Help"}
                                 </Badge>
@@ -890,7 +885,7 @@ const RecoveryReports = () => {
                           ))
                         ) : (
                           <tr>
-                            <td colSpan={5} className="py-8 text-center text-muted-foreground">
+                            <td colSpan={5} className="py-6 text-center text-muted-foreground text-xs sm:text-sm">
                               No treatment data available
                             </td>
                           </tr>

@@ -1166,67 +1166,67 @@ const Dashboard = () => {
             <AlertDialog open={reminderAlert !== null} onOpenChange={(open) => {
               if (!open) handleSkipReminder();
             }}>
-              <AlertDialogContent className={`max-w-2xl border-2 ${isPlayingSound ? 'border-red-500 ring-4 ring-red-500/50' : 'border-primary'}`}>
+              <AlertDialogContent className={`w-[calc(100%-1rem)] max-w-sm sm:max-w-md border-2 max-h-[90vh] overflow-y-auto ${isPlayingSound ? 'border-red-500 ring-4 ring-red-500/50' : 'border-primary'}`}>
                 <AlertDialogHeader>
-                  <AlertDialogTitle className="flex items-center gap-3 text-2xl">
-                    <Bell className={`w-8 h-8 text-red-500 ${isPlayingSound ? 'animate-bounce' : ''}`} />
-                    <span>🚨 Time to Take Your Medicine! 🚨</span>
-                    {isPlayingSound && <span className="ml-auto text-xs bg-red-500 text-white px-4 py-2 rounded-full font-bold animate-pulse">🔊 ALARM ACTIVE</span>}
+                  <AlertDialogTitle className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 text-sm sm:text-xl py-2">
+                    <Bell className={`w-5 sm:w-7 h-5 sm:h-7 text-red-500 flex-shrink-0 ${isPlayingSound ? 'animate-bounce' : ''}`} />
+                    <span className="text-center sm:text-left">🚨 Time to Take Your Medicine! 🚨</span>
+                    {isPlayingSound && <span className="text-xs bg-red-500 text-white px-2 py-0.5 rounded-full font-bold animate-pulse">ALARM</span>}
                   </AlertDialogTitle>
                 </AlertDialogHeader>
                 
                 {reminderAlert && (
-                  <div className="space-y-6">
+                  <div className="space-y-3">
                     {/* Alert Pulsing Animation - only when sound is playing */}
                     {isPlayingSound && (
-                      <div className="relative h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                      <div className="relative h-1.5 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
                         <div className="absolute inset-0 bg-gradient-to-r from-red-500 via-orange-500 to-red-500 rounded-full animate-pulse" />
                       </div>
                     )}
 
                     {/* Large Medicine Details */}
-                    <div className={`p-6 rounded-xl border-2 transition-all text-center ${
+                    <div className={`p-2 sm:p-3 rounded-lg border-2 transition-all text-center ${
                       isPlayingSound 
-                        ? 'bg-red-50 dark:bg-red-950 border-red-300 dark:border-red-700 shadow-2xl shadow-red-500/30' 
+                        ? 'bg-red-50 dark:bg-red-950 border-red-300 dark:border-red-700' 
                         : 'bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950 dark:to-indigo-950 border-blue-300 dark:border-blue-700'
                     }`}>
-                      <h3 className={`font-bold text-3xl mb-2 ${
+                      <h3 className={`font-bold text-base sm:text-xl mb-0.5 sm:mb-1 ${
                         isPlayingSound 
                           ? 'text-red-900 dark:text-red-100' 
                           : 'text-blue-900 dark:text-blue-100'
                       }`}>
                         💊 {reminderAlert.name}
                       </h3>
-                      <p className={`text-lg font-semibold mb-3 ${
+                      <p className={`text-xs sm:text-sm font-semibold ${
                         isPlayingSound 
                           ? 'text-red-700 dark:text-red-300' 
                           : 'text-blue-700 dark:text-blue-300'
                       }`}>
-                        Dosage: <span className="text-2xl">{reminderAlert.dosage}</span>
+                        Dosage: <span className="text-sm sm:text-base">{reminderAlert.dosage}</span>
                       </p>
                     </div>
 
                     {/* Time and Frequency - Large and Prominent */}
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className={`p-4 rounded-xl border-2 flex flex-col items-center justify-center ${
+                    <div className="grid grid-cols-2 gap-1.5 sm:gap-2">
+                      <div className={`p-1 sm:p-2 rounded-lg border-2 flex flex-col items-center justify-center ${
                         isPlayingSound 
                           ? 'bg-red-100 dark:bg-red-900 border-red-300' 
                           : 'bg-blue-100 dark:bg-blue-900 border-blue-300'
                       }`}>
-                        <Clock className={`w-8 h-8 mb-2 ${isPlayingSound ? 'text-red-600' : 'text-blue-600'}`} />
-                        <p className="text-xs font-bold text-muted-foreground">Scheduled Time</p>
-                        <p className={`font-bold text-2xl ${isPlayingSound ? 'text-red-700' : 'text-blue-700'}`}>
+                        <Clock className={`w-4 sm:w-5 h-4 sm:h-5 mb-0.5 ${isPlayingSound ? 'text-red-600' : 'text-blue-600'}`} />
+                        <p className="text-xs font-bold hidden sm:block">Scheduled Time</p>
+                        <p className={`font-bold text-xs sm:text-base ${isPlayingSound ? 'text-red-700' : 'text-blue-700'}`}>
                           {reminderAlert.time}
                         </p>
                       </div>
-                      <div className={`p-4 rounded-xl border-2 flex flex-col items-center justify-center ${
+                      <div className={`p-1 sm:p-2 rounded-lg border-2 flex flex-col items-center justify-center ${
                         isPlayingSound 
                           ? 'bg-red-100 dark:bg-red-900 border-red-300' 
                           : 'bg-blue-100 dark:bg-blue-900 border-blue-300'
                       }`}>
-                        <Pill className={`w-8 h-8 mb-2 ${isPlayingSound ? 'text-red-600' : 'text-blue-600'}`} />
-                        <p className="text-xs font-bold text-muted-foreground">Frequency</p>
-                        <p className={`font-bold text-2xl ${isPlayingSound ? 'text-red-700' : 'text-blue-700'}`}>
+                        <Pill className={`w-4 sm:w-5 h-4 sm:h-5 mb-0.5 ${isPlayingSound ? 'text-red-600' : 'text-blue-600'}`} />
+                        <p className="text-xs font-bold hidden sm:block">Frequency</p>
+                        <p className={`font-bold text-xs sm:text-base ${isPlayingSound ? 'text-red-700' : 'text-blue-700'}`}>
                           {reminderAlert.frequency}
                         </p>
                       </div>
@@ -1234,11 +1234,11 @@ const Dashboard = () => {
 
                     {/* Instructions if available */}
                     {reminderAlert.instructions && (
-                      <div className="bg-amber-50 dark:bg-amber-950 p-4 rounded-xl border-2 border-amber-300 dark:border-amber-700">
-                        <p className="text-xs font-bold text-amber-900 dark:text-amber-100 mb-2">
+                      <div className="bg-amber-50 dark:bg-amber-950 p-1.5 sm:p-2 rounded-lg border-2 border-amber-300 dark:border-amber-700">
+                        <p className="text-xs font-bold text-amber-900 dark:text-amber-100 mb-0.5">
                           📋 INSTRUCTIONS:
                         </p>
-                        <p className="text-lg font-semibold text-amber-800 dark:text-amber-200">
+                        <p className="text-xs sm:text-sm font-semibold text-amber-800 dark:text-amber-200">
                           {reminderAlert.instructions}
                         </p>
                       </div>
@@ -1246,18 +1246,18 @@ const Dashboard = () => {
 
                     {/* Alert Status Message - Bold and Prominent */}
                     {isPlayingSound && (
-                      <div className="bg-red-500 dark:bg-red-600 border-2 border-red-700 p-5 rounded-xl animate-pulse">
-                        <p className="text-lg font-bold text-white text-center">
-                          ⚠️ ALARM IS ACTIVE - PLEASE CONFIRM TO STOP! ⚠️
+                      <div className="bg-red-500 dark:bg-red-600 border-2 border-red-700 p-1.5 sm:p-2 rounded-lg animate-pulse">
+                        <p className="text-xs sm:text-sm font-bold text-white text-center">
+                          ⚠️ ALARM IS ACTIVE - CONFIRM TO STOP! ⚠️
                         </p>
                       </div>
                     )}
                   </div>
                 )}
 
-                <AlertDialogFooter className="gap-3 mt-6">
+                <AlertDialogFooter className="gap-2 mt-3 flex-col sm:flex-row">
                   <AlertDialogCancel 
-                    className={`flex-1 text-lg font-bold py-6 ${
+                    className={`flex-1 text-xs sm:text-base font-bold py-2 sm:py-3 ${
                       isPlayingSound 
                         ? 'opacity-50 cursor-not-allowed' 
                         : ''
@@ -1268,14 +1268,14 @@ const Dashboard = () => {
                   </AlertDialogCancel>
                   <AlertDialogAction 
                     onClick={handleConfirmTaken}
-                    className={`flex-1 text-lg font-bold py-6 text-white transition-all ${
+                    className={`flex-1 text-xs sm:text-base font-bold py-2 sm:py-3 text-white transition-all flex items-center justify-center gap-1 ${
                       isPlayingSound 
                         ? 'bg-red-600 hover:bg-red-700 animate-pulse' 
                         : 'bg-green-600 hover:bg-green-700'
                     }`}
                   >
-                    <CheckCircle2 className="w-6 h-6 mr-2" />
-                    {isPlayingSound ? '🛑 STOP & CONFIRM TAKEN' : '✅ Confirm Taken'}
+                    <CheckCircle2 className="w-4 sm:w-5 h-4 sm:h-5" />
+                    {isPlayingSound ? '🛑 STOP & CONFIRM' : '✅ Confirm'}
                   </AlertDialogAction>
                 </AlertDialogFooter>
               </AlertDialogContent>

@@ -130,63 +130,63 @@ const AdminLogin = () => {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       {/* Top Navigation */}
-      <nav className="border-b border-border/50 px-4 py-4 bg-card/50">
+      <nav className="border-b border-border/50 px-3 sm:px-4 py-3 sm:py-4 bg-card/50">
         <div className="container mx-auto">
           <Link to="/" className="flex items-center gap-2 w-fit">
-            <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center">
-              <Pill className="w-5 h-5 text-primary-foreground" />
+            <div className="w-8 sm:w-10 h-8 sm:h-10 rounded-xl bg-primary flex items-center justify-center">
+              <Pill className="w-4 sm:w-5 h-4 sm:h-5 text-primary-foreground" />
             </div>
-            <span className="text-xl font-bold">MediFlow</span>
+            <span className="text-lg sm:text-xl font-bold">MediFlow</span>
           </Link>
         </div>
       </nav>
 
       {/* Main Content */}
-      <div className="flex-1 flex items-center justify-center px-4 py-8">
+      <div className="flex-1 flex items-center justify-center px-3 sm:px-4 py-6 sm:py-8">
         <div className="w-full max-w-md">
           {/* Header */}
-          <div className="text-center mb-8">
-            <Badge variant="secondary" className="mb-4 mx-auto">
+          <div className="text-center mb-6 sm:mb-8">
+            <Badge variant="secondary" className="mb-3 sm:mb-4 mx-auto text-xs sm:text-sm">
               Admin Access
             </Badge>
-            <h1 className="text-3xl font-bold mb-2">Admin Login</h1>
-            <p className="text-muted-foreground">
+            <h1 className="text-2xl sm:text-3xl font-bold mb-2 sm:mb-3">Admin Login</h1>
+            <p className="text-xs sm:text-sm text-muted-foreground px-2">
               Sign in to access the admin dashboard and manage the platform
             </p>
           </div>
 
           {/* Login Card */}
           <Card className="border-primary/10">
-            <CardHeader>
-              <CardTitle>Sign In</CardTitle>
-              <CardDescription>
+            <CardHeader className="p-4 sm:p-6">
+              <CardTitle className="text-lg sm:text-xl">Sign In</CardTitle>
+              <CardDescription className="text-xs sm:text-sm">
                 Enter your admin credentials to continue
               </CardDescription>
             </CardHeader>
-            <CardContent>
-              <form onSubmit={handleAdminLogin} className="space-y-6">
+            <CardContent className="p-4 sm:p-6">
+              <form onSubmit={handleAdminLogin} className="space-y-4 sm:space-y-6">
                 {/* Error Alert */}
                 {error && (
                   <Alert variant="destructive">
                     <AlertCircle className="h-4 w-4" />
-                    <AlertDescription>{error}</AlertDescription>
+                    <AlertDescription className="text-xs sm:text-sm">{error}</AlertDescription>
                   </Alert>
                 )}
 
                 {/* Email Field */}
-                <div className="space-y-2">
-                  <Label htmlFor="email" className="text-sm font-medium">
+                <div className="space-y-1.5 sm:space-y-2">
+                  <Label htmlFor="email" className="text-xs sm:text-sm font-medium">
                     Email Address
                   </Label>
                   <div className="relative flex items-center">
-                    <Mail className="absolute left-3 w-4 h-4 text-foreground/70 pointer-events-none" />
+                    <Mail className="absolute left-3 w-3 sm:w-4 h-3 sm:h-4 text-foreground/70 pointer-events-none" />
                     <Input
                       id="email"
                       type="email"
                       placeholder="admin@example.com"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className="pl-10 pr-4"
+                      className="pl-9 sm:pl-10 pr-4 h-9 sm:h-10 text-xs sm:text-sm"
                       required
                       disabled={loading}
                     />
@@ -194,19 +194,19 @@ const AdminLogin = () => {
                 </div>
 
                 {/* Password Field */}
-                <div className="space-y-2">
-                  <Label htmlFor="password" className="text-sm font-medium">
+                <div className="space-y-1.5 sm:space-y-2">
+                  <Label htmlFor="password" className="text-xs sm:text-sm font-medium">
                     Password
                   </Label>
                   <div className="relative flex items-center">
-                    <Lock className="absolute left-3 w-4 h-4 text-foreground/70 pointer-events-none" />
+                    <Lock className="absolute left-3 w-3 sm:w-4 h-3 sm:h-4 text-foreground/70 pointer-events-none" />
                     <Input
                       id="password"
                       type="password"
                       placeholder="••••••••"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
-                      className="pl-10 pr-4"
+                      className="pl-9 sm:pl-10 pr-4 h-9 sm:h-10 text-xs sm:text-sm"
                       required
                       disabled={loading}
                     />
@@ -216,23 +216,26 @@ const AdminLogin = () => {
                 {/* Login Button */}
                 <Button
                   type="submit"
-                  className="w-full"
+                  className="w-full h-9 sm:h-10 text-sm sm:text-base"
                   disabled={loading}
-                  size="lg"
                 >
                   {loading ? (
                     <>
                       <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                      Signing in...
+                      <span className="hidden sm:inline">Signing in...</span>
+                      <span className="sm:hidden">Signing in</span>
                     </>
                   ) : (
-                    "Sign In as Admin"
+                    <>
+                      <span className="hidden sm:inline">Sign In as Admin</span>
+                      <span className="sm:hidden">Sign In</span>
+                    </>
                   )}
                 </Button>
               </form>
 
               {/* Help Text */}
-              <div className="mt-6 pt-6 border-t border-border/50 text-center text-sm text-muted-foreground">
+              <div className="mt-4 sm:mt-6 pt-4 sm:pt-6 border-t border-border/50 text-center text-xs sm:text-sm text-muted-foreground">
                 <p>
                   Not an admin?{" "}
                   <Link to="/login" className="text-primary hover:underline font-medium">
@@ -244,13 +247,14 @@ const AdminLogin = () => {
           </Card>
 
           {/* Footer */}
-          <div className="mt-8 text-center">
+          <div className="mt-6 sm:mt-8 text-center">
             <Link
               to="/"
-              className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
+              className="inline-flex items-center gap-2 text-xs sm:text-sm text-muted-foreground hover:text-primary transition-colors"
             >
-              <ArrowLeft className="w-4 h-4" />
-              Back to Home
+              <ArrowLeft className="w-3 sm:w-4 h-3 sm:h-4" />
+              <span className="hidden sm:inline">Back to Home</span>
+              <span className="sm:hidden">Back</span>
             </Link>
           </div>
         </div>

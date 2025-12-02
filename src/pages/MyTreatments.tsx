@@ -826,14 +826,14 @@ const MyTreatments = () => {
                   <span className="sm:hidden">Add</span>
                 </Button>
               </DialogTrigger>
-              <DialogContent className="max-w-md">
+              <DialogContent className="w-[calc(100%-1rem)] max-w-sm sm:max-w-md max-h-[90vh] overflow-y-auto">
                 <DialogHeader>
-                  <DialogTitle>Add New Treatment</DialogTitle>
-                  <DialogDescription>
+                  <DialogTitle className="text-lg sm:text-xl">Add New Treatment</DialogTitle>
+                  <DialogDescription className="text-xs sm:text-sm">
                     Create a new treatment plan with details
                   </DialogDescription>
                 </DialogHeader>
-                <div className="space-y-4">
+                <div className="space-y-3 sm:space-y-4">
                   <div>
                     <Label htmlFor="name">Treatment Name *</Label>
                     <Input
@@ -1064,7 +1064,7 @@ const MyTreatments = () => {
                                       </Button>
                                     </DialogTrigger>
                                     {selectedMedicine?.id === medicine.id && (
-                                      <DialogContent className="max-w-md">
+                                      <DialogContent className="max-w-sm sm:max-w-md">
                                         <DialogHeader>
                                           <DialogTitle>Take Medication</DialogTitle>
                                           <DialogDescription>
@@ -1128,16 +1128,16 @@ const MyTreatments = () => {
                                 </Button>
                               </DialogTrigger>
                               {selectedTreatmentId === treatment.id && (
-                                <DialogContent className="max-w-md max-h-[90vh] overflow-y-auto">
-                                  <DialogHeader>
-                                    <DialogTitle>Add New Medicine</DialogTitle>
-                                    <DialogDescription>
+                                <DialogContent className="w-[calc(100%-1rem)] max-w-sm sm:max-w-md max-h-[70vh] overflow-y-auto p-2 sm:p-4">
+                                  <DialogHeader className="pb-1 sm:pb-2">
+                                    <DialogTitle className="text-sm sm:text-base">Add New Medicine</DialogTitle>
+                                    <DialogDescription className="text-xs">
                                       Add a medicine to this treatment plan
                                     </DialogDescription>
                                   </DialogHeader>
-                                  <div className="space-y-4">
+                                  <div className="space-y-1.5 sm:space-y-2">
                                     <div>
-                                      <Label htmlFor="med-name">Medicine Name *</Label>
+                                      <Label htmlFor="med-name" className="text-xs">Medicine Name *</Label>
                                       <Input
                                         id="med-name"
                                         placeholder="e.g., Metformin"
@@ -1148,10 +1148,11 @@ const MyTreatments = () => {
                                             name: e.target.value,
                                           })
                                         }
+                                        className="h-7 sm:h-9 text-xs"
                                       />
                                     </div>
                                     <div>
-                                      <Label htmlFor="med-dosage">Dosage *</Label>
+                                      <Label htmlFor="med-dosage" className="text-xs">Dosage *</Label>
                                       <Input
                                         id="med-dosage"
                                         placeholder="e.g., 500mg"
@@ -1162,10 +1163,11 @@ const MyTreatments = () => {
                                             dosage: e.target.value,
                                           })
                                         }
+                                        className="h-7 sm:h-9 text-xs"
                                       />
                                     </div>
                                     <div>
-                                      <Label htmlFor="med-frequency">Frequency *</Label>
+                                      <Label htmlFor="med-frequency" className="text-xs">Frequency *</Label>
                                       <Select
                                         value={medicineForm.frequency}
                                         onValueChange={(value) =>
@@ -1175,8 +1177,8 @@ const MyTreatments = () => {
                                           })
                                         }
                                       >
-                                        <SelectTrigger id="med-frequency">
-                                          <SelectValue placeholder="Select frequency" />
+                                        <SelectTrigger id="med-frequency" className="h-7 sm:h-9 text-xs">
+                                          <SelectValue placeholder="Select" />
                                         </SelectTrigger>
                                         <SelectContent>
                                           <SelectItem value="Once daily">Once daily</SelectItem>
@@ -1240,7 +1242,7 @@ const MyTreatments = () => {
                                     </div>
 
                                     <div>
-                                      <Label htmlFor="med-instructions">Instructions *</Label>
+                                      <Label htmlFor="med-instructions" className="text-xs">Instructions *</Label>
                                       <Select
                                         value={medicineForm.instructions}
                                         onValueChange={(value) =>
@@ -1250,8 +1252,8 @@ const MyTreatments = () => {
                                           })
                                         }
                                       >
-                                        <SelectTrigger id="med-instructions">
-                                          <SelectValue placeholder="Select instruction" />
+                                        <SelectTrigger id="med-instructions" className="h-7 sm:h-9 text-xs">
+                                          <SelectValue placeholder="Select" />
                                         </SelectTrigger>
                                         <SelectContent>
                                           <SelectItem value="Before food">Before food</SelectItem>
@@ -1261,7 +1263,7 @@ const MyTreatments = () => {
                                       </Select>
                                     </div>
                                     <div>
-                                      <Label htmlFor="med-stock">Stock (tablets)</Label>
+                                      <Label htmlFor="med-stock" className="text-xs">Stock (tablets)</Label>
                                       <Input
                                         id="med-stock"
                                         type="number"
@@ -1273,9 +1275,10 @@ const MyTreatments = () => {
                                             stock: e.target.value,
                                           })
                                         }
+                                        className="h-7 sm:h-9 text-xs"
                                       />
                                     </div>
-                                    <Button onClick={handleAddMedicine} className="w-full">
+                                    <Button onClick={handleAddMedicine} className="w-full h-8 sm:h-9 text-xs mt-1">
                                       Add Medicine
                                     </Button>
                                   </div>
@@ -1300,16 +1303,16 @@ const MyTreatments = () => {
                                 </Button>
                               </DialogTrigger>
                               {selectedTreatmentId === treatment.id && (
-                                <DialogContent className="max-w-md max-h-[90vh] overflow-y-auto">
-                                  <DialogHeader>
-                                    <DialogTitle>Add New Medicine</DialogTitle>
-                                    <DialogDescription>
+                                <DialogContent className="w-[calc(100%-1rem)] max-w-sm sm:max-w-md max-h-[70vh] overflow-y-auto p-2 sm:p-4">
+                                  <DialogHeader className="pb-1 sm:pb-2">
+                                    <DialogTitle className="text-sm sm:text-base">Add New Medicine</DialogTitle>
+                                    <DialogDescription className="text-xs">
                                       Add a medicine to this treatment plan
                                     </DialogDescription>
                                   </DialogHeader>
-                                  <div className="space-y-4">
+                                  <div className="space-y-2 sm:space-y-3">
                                     <div>
-                                      <Label htmlFor="med-name">Medicine Name *</Label>
+                                      <Label htmlFor="med-name" className="text-xs sm:text-sm">Medicine Name *</Label>
                                       <Input
                                         id="med-name"
                                         placeholder="e.g., Metformin"
@@ -1320,6 +1323,7 @@ const MyTreatments = () => {
                                             name: e.target.value,
                                           })
                                         }
+                                        className="h-8 sm:h-10 text-xs sm:text-sm"
                                       />
                                     </div>
                                     <div>
@@ -1361,10 +1365,10 @@ const MyTreatments = () => {
 
                                     {/* Times Management */}
                                     <div>
-                                      <Label>Medicine Times *</Label>
-                                      <div className="space-y-2 mt-2">
+                                      <Label className="text-xs">Medicine Times *</Label>
+                                      <div className="space-y-1 mt-1">
                                         {medicineForm.times.map((time, index) => (
-                                          <div key={index} className="flex gap-2">
+                                          <div key={index} className="flex gap-1">
                                             <Input
                                               type="time"
                                               value={time}
@@ -1376,11 +1380,11 @@ const MyTreatments = () => {
                                                   times: newTimes,
                                                 });
                                               }}
-                                              className="flex-1"
+                                              className="flex-1 h-7 sm:h-9 text-xs"
                                             />
                                             <Button
                                               type="button"
-                                              variant="destructive"
+                                              variant="ghost"
                                               size="sm"
                                               onClick={() => {
                                                 setMedicineForm({
@@ -1388,8 +1392,9 @@ const MyTreatments = () => {
                                                   times: medicineForm.times.filter((_, i) => i !== index),
                                                 });
                                               }}
+                                              className="px-2 h-7 sm:h-9"
                                             >
-                                              Remove
+                                              <X className="w-3 h-3" />
                                             </Button>
                                           </div>
                                         ))}
@@ -1397,7 +1402,7 @@ const MyTreatments = () => {
                                           type="button"
                                           variant="outline"
                                           size="sm"
-                                          className="w-full gap-2"
+                                          className="w-full gap-1 h-7 sm:h-8 text-xs"
                                           onClick={() => {
                                             setMedicineForm({
                                               ...medicineForm,
@@ -1405,14 +1410,14 @@ const MyTreatments = () => {
                                             });
                                           }}
                                         >
-                                          <Plus className="w-4 h-4" />
+                                          <Plus className="w-3 h-3" />
                                           Add Time
                                         </Button>
                                       </div>
                                     </div>
 
                                     <div>
-                                      <Label htmlFor="med-instructions">Instructions *</Label>
+                                      <Label htmlFor="med-instructions" className="text-xs">Instructions *</Label>
                                       <Select
                                         value={medicineForm.instructions}
                                         onValueChange={(value) =>
@@ -1488,14 +1493,14 @@ const MyTreatments = () => {
                           Add Treatment
                         </Button>
                       </DialogTrigger>
-                      <DialogContent className="max-w-md">
+                      <DialogContent className="w-[calc(100%-1rem)] max-w-sm sm:max-w-md max-h-[90vh] overflow-y-auto">
                         <DialogHeader>
-                          <DialogTitle>Add New Treatment</DialogTitle>
-                          <DialogDescription>
+                          <DialogTitle className="text-lg sm:text-xl">Add New Treatment</DialogTitle>
+                          <DialogDescription className="text-xs sm:text-sm">
                             Create a new treatment plan with details
                           </DialogDescription>
                         </DialogHeader>
-                        <div className="space-y-4">
+                        <div className="space-y-3 sm:space-y-4">
                           <div>
                             <Label htmlFor="name">Treatment Name *</Label>
                             <Input

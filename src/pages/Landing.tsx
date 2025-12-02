@@ -94,13 +94,16 @@ const Landing = () => {
           </div>
 
           {/* Mobile Navigation */}
-          <div className="md:hidden flex items-center gap-2">
+          <div className="md:hidden flex items-center gap-1 sm:gap-2">
             {user ? (
               <Link to="/dashboard">
                 <Button variant="hero" size="sm">Dashboard</Button>
               </Link>
             ) : (
               <>
+                <Link to="/admin-login">
+                  <Button variant="outline" size="sm" className="text-xs sm:text-sm px-2 sm:px-3">Admin</Button>
+                </Link>
                 <Link to="/signup">
                   <Button variant="hero" size="sm">Start</Button>
                 </Link>
