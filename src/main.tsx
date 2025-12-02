@@ -2,6 +2,10 @@ import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
 import "./styles/mobile-responsive.css";
+import { initCapacitor } from "./utils/capacitor-init";
+
+// Initialize Capacitor for mobile app
+initCapacitor();
 
 // Register service worker for background alarm notifications
 if ('serviceWorker' in navigator) {
