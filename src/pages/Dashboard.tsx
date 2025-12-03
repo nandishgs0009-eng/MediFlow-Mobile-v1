@@ -1171,7 +1171,7 @@ const Dashboard = () => {
             <AlertDialog open={reminderAlert !== null} onOpenChange={(open) => {
               if (!open) handleSkipReminder();
             }}>
-              <AlertDialogContent className={`w-[calc(100%-1rem)] max-w-sm sm:max-w-md border-2 max-h-[85vh] overflow-y-auto p-4 sm:p-5 lg:p-6 ${isPlayingSound ? 'border-red-500 ring-4 ring-red-500/50' : 'border-primary'}`}>
+              <AlertDialogContent className={isPlayingSound ? 'ring-4 ring-red-500/50' : ''}>
                 <AlertDialogHeader>
                   <AlertDialogTitle className="flex flex-col items-center gap-3 text-sm sm:text-base lg:text-lg py-2">
                     <Bell className={`w-6 sm:w-7 h-6 sm:h-7 text-red-500 flex-shrink-0 ${isPlayingSound ? 'animate-bounce' : ''}`} />

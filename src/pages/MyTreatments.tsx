@@ -1050,7 +1050,7 @@ const MyTreatments = () => {
                                 </Button>
                               </DialogTrigger>
                               {selectedTreatmentId === treatment.id && (
-                                <DialogContent className="w-[calc(100%-1rem)] max-w-sm sm:max-w-md max-h-[85vh] overflow-y-auto p-4 sm:p-6">
+                                <DialogContent>
                                   <DialogHeader className="pb-2 sm:pb-4">
                                     <DialogTitle className="text-base sm:text-lg">Add New Medicine</DialogTitle>
                                     <DialogDescription className="text-xs sm:text-sm">
@@ -1226,7 +1226,7 @@ const MyTreatments = () => {
                                 </Button>
                               </DialogTrigger>
                               {selectedTreatmentId === treatment.id && (
-                                <DialogContent className="w-[calc(100%-1rem)] max-w-sm sm:max-w-md max-h-[75vh] overflow-y-auto p-2.5 sm:p-3">
+                                <DialogContent className="max-h-[75vh] overflow-y-auto">
                                   <DialogHeader className="pb-1 sm:pb-2">
                                     <DialogTitle className="text-sm sm:text-base">Add Medicine</DialogTitle>
                                     <DialogDescription className="text-xs">
@@ -1421,7 +1421,7 @@ const MyTreatments = () => {
                           Start New Treatment
                         </Button>
                       </DialogTrigger>
-                      <DialogContent className="w-[calc(100%-1rem)] max-w-sm sm:max-w-md max-h-[95vh] overflow-y-auto p-5 sm:p-6">
+                      <DialogContent>
                         <DialogHeader className="pb-4 sm:pb-5">
                           <DialogTitle className="text-lg sm:text-xl">Add New Treatment</DialogTitle>
                           <DialogDescription className="text-xs sm:text-sm">
